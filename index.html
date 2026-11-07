@@ -29,7 +29,7 @@ body.crOn .top{top:calc(40px + env(safe-area-inset-top));padding-top:10px}
 .crqr{display:flex;justify-content:center}.crqr svg{width:200px;height:200px;background:#fff;border-radius:12px}
 .crcode{font-size:2em;font-weight:800;letter-spacing:.25em;color:var(--brand);font-family:ui-monospace,Menlo,monospace}
 .crsheet .pill{background:var(--soft);margin:2px;font-size:.9em}
-#sosbtn{position:fixed;left:10px;bottom:72px;z-index:55;background:#B8473E;color:#fff;border:0;border-radius:999px;padding:7px 13px;font-size:.78em;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.28);cursor:pointer}#sosov{position:fixed;inset:0;z-index:99;background:rgba(20,10,20,.55);display:none;align-items:flex-end;justify-content:center}#sosov.on{display:flex}#sospn{background:#fff;color:#2A2633;width:100%;max-width:560px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px 18px 28px}#sospn h2{margin:0 0 6px;font-size:1.25em;color:#B8473E}#sospn p{margin:6px 0;line-height:1.7}#sospn a.tel{display:block;margin:7px 0;padding:11px 14px;border-radius:12px;background:#FBEDEB;color:#8E2D26;font-weight:700;text-decoration:none}#sospn a.tel span{display:block;font-weight:400;font-size:.82em;color:#5b4a48}#sospn button{margin-top:12px;width:100%;padding:12px;border:0;border-radius:12px;background:#6E2A4B;color:#fff;font-size:1em}</style>
+#sosbtn{position:fixed;left:10px;bottom:72px;z-index:55;background:#B8473E;color:#fff;border:0;border-radius:999px;padding:7px 13px;font-size:.78em;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.28);cursor:pointer}#sosov{position:fixed;inset:0;z-index:99;background:rgba(20,10,20,.55);display:none;align-items:flex-end;justify-content:center}#sosov.on{display:flex}#sospn{background:#fff;color:#2A2633;width:100%;max-width:560px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px 18px 28px}#sospn h2{margin:0 0 6px;font-size:1.25em;color:#B8473E}#sospn p{margin:6px 0;line-height:1.7}#sospn a.tel{display:block;margin:7px 0;padding:11px 14px;border-radius:12px;background:#FBEDEB;color:#8E2D26;font-weight:700;text-decoration:none}#sospn a.tel span{display:block;font-weight:400;font-size:.82em;color:#5b4a48}#sospn button{margin-top:12px;width:100%;padding:12px;border:0;border-radius:12px;background:#6E2A4B;color:#fff;font-size:1em}[lang=en].parS,[lang=en].par,.par [lang=en]{font-family:Georgia,"Times New Roman",serif;font-feature-settings:normal}</style>
 <style id="parcss">.par{margin:6px 0 14px;padding:8px 12px;border-left:3px solid var(--gold);background:var(--soft);border-radius:6px;font-size:.9em;color:var(--mute);line-height:1.75}.parS{display:block;margin:3px 0 12px;padding:1px 0 1px 10px;border-left:2px solid var(--gold);font-size:.86em;color:var(--mute);line-height:1.7;font-weight:400;font-style:normal;text-align:left}.scr .parS{margin:2px 0 8px}.par.pt{margin:2px 0 8px;padding:2px 10px;font-size:.85em}.ib.on{color:var(--gold)}</style>
 <style id="fw1105">.xzm.assistant{max-width:100%!important;width:100%;box-sizing:border-box}</style>
 </head>
@@ -41,7 +41,7 @@ body.crOn .top{top:calc(40px + env(safe-area-inset-top));padding-top:10px}
 <div id="toast" class="toast"></div>
 <script>
 /* 321戀愛生活 · core (ES5) */
-var APPVER = '1.0.202611071200-lv1';
+var APPVER = '1.0.202611071400-lv2';
 var KEY = 'lv321';
 var SVC = { xz: 'https://xiaozhi-proxy.spch321.workers.dev', tts: 'https://azure-tts.spch321.workers.dev', model: 'claude-sonnet-4-6' };
 var STAGES = [[1, 1, 8, 's1'], [2, 9, 21, 's2'], [3, 22, 30, 's3'], [4, 31, 44, 's4'], [5, 45, 52, 's5']];
@@ -135,7 +135,7 @@ if (TOOLS[lang]) return cb(TOOLS[lang]);
 getJSON(['t-' + lang + '.json', 'content/t-' + lang + '.json'], function (j) { TOOLS[lang] = j; cb(j); }, function (e) { cb(null, e); });
 }
 /* ---------- 雙語並讀（逐句）---------- */
-var PAR_L = [['zh', '繁', 'zh-Hant'], ['zs', '简', 'zh-Hans'], ['ko', '한', 'ko']];
+var PAR_L = [['zh', '繁', 'zh-Hant'], ['zs', '简', 'zh-Hans'], ['ko', '한', 'ko'], ['en', 'EN', 'en']];
 function parOn() { return S.par && S.par !== L() ? S.par : ''; }
 window.XZPAR_HOST = { on: function () { return parOn(); } };
 function parLang() { var g = parOn(), r = 'en'; eachA(PAR_L, function (x) { if (x[0] === g) r = x[2]; }); return r; }
@@ -161,7 +161,7 @@ function parGroups(arr, ptxt) { if (!ptxt || !parOn()) return null; var pp = Str
 function getParWeek(w, cb) { var g = parOn(); if (!g) return cb(null); loadStageL(g, stageOf(w), function (m) { cb(m ? m[w] : null); }); }
 function parBtn() { var g = parOn(), lb = '⇄'; eachA(PAR_L, function (x) { if (x[0] === g) lb = x[1]; }); return '<button class="ib' + (g ? ' on' : '') + '" onclick="parTog()" aria-label="parallel" style="font-size:15px;font-weight:700">' + lb + '</button>'; }
 function parTog() { var po = ['']; eachA(PAR_L, function (x) { if (x[0] !== L()) po.push(x[0]); }); var ix = po.indexOf(S.par || ''); S.par = po[(ix + 1) % po.length]; save(); var y = window.pageYOffset; render(); window.scrollTo(0, y); }
-function parSheet() { var nm = { zh: '繁體中文', zs: '简体中文', ko: '한국어' }, b = ''; eachA(PAR_L, function (x) { if (x[0] !== L()) b += '<button class="opt" onclick="closeSheet();parSet(\'' + x[0] + '\')"><b>⇄ ' + nm[x[0]] + (S.par === x[0] ? ' ✓' : '') + '</b></button>'; }); sheet('<div class="crsheet"><p class="h2" style="margin:0 0 4px">⇄ ' + esc(T('parT')) + '</p><p class="sm muted" style="margin:0 0 12px">' + esc(T('parD')) + '</p>' + b + '<button class="opt" onclick="closeSheet();parSet(\'\')"><b>' + esc(T('parOffB')) + '</b></button><button class="btn full" onclick="closeSheet()">' + esc(T('close')) + '</button></div>'); }
+function parSheet() { var nm = { zh: '繁體中文', zs: '简体中文', ko: '한국어', en: 'English' }, b = ''; eachA(PAR_L, function (x) { if (x[0] !== L()) b += '<button class="opt" onclick="closeSheet();parSet(\'' + x[0] + '\')"><b>⇄ ' + nm[x[0]] + (S.par === x[0] ? ' ✓' : '') + '</b></button>'; }); sheet('<div class="crsheet"><p class="h2" style="margin:0 0 4px">⇄ ' + esc(T('parT')) + '</p><p class="sm muted" style="margin:0 0 12px">' + esc(T('parD')) + '</p>' + b + '<button class="opt" onclick="closeSheet();parSet(\'\')"><b>' + esc(T('parOffB')) + '</b></button><button class="btn full" onclick="closeSheet()">' + esc(T('close')) + '</button></div>'); }
 function parSet(g) { S.par = g; save(); render(); }
 /* ---------- progress ---------- */
 function weekDone(w) { var n = 0; for (var d = 1; d <= 5; d++) if (S.done[lid(w, d)]) n++; return n; }
@@ -1295,7 +1295,7 @@ h += '<div class="card"><p class="eyebrow">' + esc(T('language')) + '</p><div cl
 for (var i = 0; i < langs.length; i++) h += '<button class="' + (L() === langs[i][0] ? 'on' : '') + '" onclick="setLang(\'' + langs[i][0] + '\')">' + langs[i][1] + '</button>';
 h += '</div><p class="xs muted">' + esc(T('langNote')) + '</p></div>';
 h += '<div class="card"><p class="eyebrow">' + esc(T('parLang')) + '</p><div class="seg"><button class="' + (!parOn() ? 'on' : '') + '" onclick="parSet(\'\')">' + esc(T('parNone')) + '</button>';
-for (var pj = 0; pj < langs.length; pj++) if (langs[pj][0] !== L()) h += '<button class="' + (parOn() === langs[pj][0] ? 'on' : '') + '" onclick="parSet(\'' + langs[pj][0] + '\')">' + langs[pj][1] + '</button>';
+var plangs = langs.concat([['en', 'English']]); for (var pj = 0; pj < plangs.length; pj++) if (plangs[pj][0] !== L()) h += '<button class="' + (parOn() === plangs[pj][0] ? 'on' : '') + '" onclick="parSet(\'' + plangs[pj][0] + '\')">' + plangs[pj][1] + '</button>';
 h += '</div><p class="xs muted">' + esc(T('parHint')) + '</p></div>';
 var fss = [[15, 'S'], [17, 'M'], [19, 'L'], [22, 'XL']];
 h += '<div class="card"><p class="eyebrow">' + esc(T('fontSize')) + '</p><div class="seg">';
