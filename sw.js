@@ -5,7 +5,7 @@
      clients.claim 後通知所有頁面（頁面自己判斷空閒才重整）
    ‧ fetch：HTML／JS／JSON／CSS 網路優先（no-cache），離線才用快取；圖片等快取優先；影音與 Range 請求不攔截 */
 var PFX = 'lv321-';
-var VER = '1.0.202611071400-lv2';
+var VER = '1.1.202611071700-lv4';
 var V = PFX + VER;
 var SHELL = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png", "./hero-s.jpg", "./c-zh-s1.json", "./t-zh.json", "./peerjs.min.js", "./qrcode.js", "./xz2.js", "./xzm.js", "./xzpar.js"];
 self.addEventListener('install', function (e) {
